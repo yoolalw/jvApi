@@ -14,6 +14,7 @@ import jakarta.persistence.*;
 
 public class ProductModel {
     @Id
+    @GeneratedValue
     private Integer id;
     private String nomeKimono;
     private Double precoKimono;

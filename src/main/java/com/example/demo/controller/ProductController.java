@@ -1,7 +1,10 @@
 package com.example.demo.controller;
 
+
 import com.example.demo.models.ProductModel;
 import com.example.demo.repository.ProductRepository;
+import com.example.demo.service.ProductService;
+
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -15,39 +18,30 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 
 
+
 @RestController
 @RequestMapping("/products")
 public class ProductController {
 
-    
     @Autowired
     private ProductRepository productRepository;
+    private ProductService productService;
 
-    @GetMapping
+    @GetMapping 
     public List<ProductModel> listarProdutos(){
-        return productRepository.findAll();
+        return productService.listarProdutos();
     }
 
     @PostMapping
-    public ProductModel adicionarProduto(@RequestBody ProductModel produto){
-        return productRepository.save(produto);
+    public List<ProductModel> adicionarProduto(@RequestBody ProductModel produto){
+        return productService.criarProdutos(produto);
     }
 
 
     @PutMapping("/{id}")
-    public ResponseEntity<ProductModel> atualizarProduto(@PathVariable Integer id, @RequestBody ProductModel produtoAtualizado){
-        return productRepository.findById(id)
-            .map(produtoExistente -> {
-                produtoExistente.setNomeKimono(produtoAtualizado.getNomeKimono());
-                produtoExistente.setPrecoKimono(produtoAtualizado.getPrecoKimono());
-                produtoExistente.setQuantidadeKimono(produtoAtualizado.getQuantidadeKimono());
-                
-                ProductModel produtoSalvo = productRepository.save(produtoExistente);
-
-                return ResponseEntity.ok(produtoSalvo);
-            }) .orElse(ResponseEntity.notFound().build());
-
-
+    public ResponseEntity<List<ProductModel>> atualizarProduto(@PathVariable Integer id, @RequestBody ProductModel produtoAtualizado){
+        List<ProductModel> produtos = productService.atualizarProdutos(id, produtoAtualizado);
+        return ResponseEntity.ok(produtos);
     }
 
     @DeleteMapping("/{id}")

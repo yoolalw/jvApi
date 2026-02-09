@@ -1,6 +1,7 @@
 package com.example.demo.models;
 
 import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
@@ -16,7 +17,8 @@ import lombok.Setter;
 
 public class UserModel {
     @Id
-    public Integer id;
+    @GeneratedValue
+    private Long id;
     public String nomeUser;
     public String senhaUser;
     public String emailUser;
