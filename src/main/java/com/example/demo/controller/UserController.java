@@ -24,21 +24,17 @@ import org.springframework.web.bind.annotation.PutMapping;
 public class UserController {
     
     @Autowired
+    private UserService userService;
     private UserRepository userRepository;
 
     @GetMapping
     public List<UserModel> listarUsuarios(){
-        return userRepository.findAll();
+        return userService.listarUsuarios();
     }
 
     @PostMapping("/register")
-    public String cadastrarUsuario(@RequestBody UserModel user) {
-        if (userRepository.findByEmailUser(user.getEmailUser()).isPresent()) {
-            return "Email ja cadastrado, tente novamente.";
-    } userRepository.save(user);
-        return "Cadastro feito com sucesso.";
-
-    
+    public List<UserModel> cadastrarUsuario(@RequestBody UserModel user) {
+        return userService.cadastrarUsuario(user);
     }
 
     @PutMapping("/{id}")

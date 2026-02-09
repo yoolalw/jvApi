@@ -24,7 +24,6 @@ import org.springframework.web.bind.annotation.PathVariable;
 public class ProductController {
 
     @Autowired
-    private ProductRepository productRepository;
     private ProductService productService;
 
     @GetMapping 
@@ -45,12 +44,8 @@ public class ProductController {
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<Void> deletarProduto(@PathVariable Integer id) {
-        if (productRepository.existsById(id)) {
-            productRepository.deleteById(id);
-            return ResponseEntity.noContent().build(); // 204 No Content
-        } else {
-            return ResponseEntity.notFound().build(); // 404 Not Found
-        }
+    public ResponseEntity<List<ProductModel>> deletarProduto(@PathVariable Integer id) {
+        List<ProductModel> productModels= productService.deletarProduto(id);
+        return ResponseEntity.ok().build();
     }
 }

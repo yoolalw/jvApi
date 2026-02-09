@@ -18,7 +18,7 @@ import lombok.Setter;
 public class UserModel {
     @Id
     @GeneratedValue
-    private Long id;
+    private Integer id;
     public String nomeUser;
     public String senhaUser;
     public String emailUser;
