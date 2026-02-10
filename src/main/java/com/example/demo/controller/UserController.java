@@ -2,11 +2,11 @@ package com.example.demo.controller;
 
 import java.util.List;
 import com.example.demo.service.*;
+import com.example.demo.models.UserModel;
+import com.example.demo.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RestController;
-import com.example.demo.models.UserModel;
-import com.example.demo.repository.UserRepository;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -25,7 +25,6 @@ public class UserController {
     
     @Autowired
     private UserService userService;
-    private UserRepository userRepository;
 
     @GetMapping
     public List<UserModel> listarUsuarios(){
@@ -38,29 +37,20 @@ public class UserController {
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<UserModel> atualizarUser(@PathVariable Integer id, @RequestBody UserModel userAtualizado){
-        return userRepository.findById(id)
-            .map(userExistente -> {
-                userExistente.setNomeUser(userAtualizado.getNomeUser());
-                userExistente.setEmailUser(userAtualizado.getEmailUser());
-                userExistente.setSenhaUser(userAtualizado.getSenhaUser());
-                userExistente.setEnderecoUser(userAtualizado.getEnderecoUser());
-                
-                UserModel userSalvo = userRepository.save(userExistente);
-
-                return ResponseEntity.ok(userSalvo);
-            }) .orElse(ResponseEntity.notFound().build());
-
-        }
+    public ResponseEntity<List<UserModel>> atualizarUsuario(@PathVariable Integer id, @RequestBody UserModel userAtualizado){
+        List<UserModel> usuario = userService.atualizarUsuario(id, userAtualizado);
+        return ResponseEntity.ok(usuario);
+    }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<Void> deletarUser(@PathVariable Integer id) {
-        if (userRepository.existsById(id)) {
-            userRepository.deleteById(id);
-            return ResponseEntity.noContent().build(); // 204 No Content
-        } else {
-            return ResponseEntity.notFound().build(); // 404 Not Found
-        }
+    public ResponseEntity<List<UserModel>> deletarUsuario(@PathVariable Integer id) {
+        List<UserModel> userModels = userService.deletarUsuario(id);
+        return ResponseEntity.ok().build();
+    }
+
+    @GetMapping("/test")
+        public String test() {
+        return "GET /users/test está funcionando";
     }
 }
     

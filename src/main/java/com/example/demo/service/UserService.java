@@ -1,12 +1,14 @@
 package com.example.demo.service;
 
 import java.util.List;
-
+import java.util.NoSuchElementException;
 import org.springframework.data.domain.Sort;
+import org.springframework.stereotype.Service;
 
 import com.example.demo.models.UserModel;
 import com.example.demo.repository.UserRepository;
 
+@Service
 public class UserService {
     private UserRepository userRepository;
 
@@ -15,8 +17,7 @@ public class UserService {
     }
 
     public List<UserModel> listarUsuarios(){ //@GetMapping
-        Sort sort = Sort.by("prioridade").descending()
-        .and(Sort.by("nomeUser"))
+        Sort sort = Sort.by("nomeUser").descending()
         .and(Sort.by("emailUser")).ascending();
 
         return userRepository.findAll(sort);
@@ -29,6 +30,22 @@ public class UserService {
        
     }
 
-    
+    public List<UserModel> atualizarUsuario(Integer id, UserModel usuarioAtualizado){
+        UserModel usuarioExistente = userRepository.findById(id)
+        .orElseThrow(NoSuchElementException::new);
+            usuarioExistente.setNomeUser(usuarioAtualizado.getNomeUser());
+            usuarioExistente.setEmailUser(usuarioAtualizado.getEmailUser());
+            usuarioExistente.setSenhaUser(usuarioAtualizado.getSenhaUser());
+
+            userRepository.save(usuarioAtualizado);
+
+            return listarUsuarios();
+    }
+
+    public List<UserModel> deletarUsuario(Integer id){
+        if(userRepository.existsById(id)){
+            userRepository.deleteById(id);
+        } return listarUsuarios();
+    }
 
 }

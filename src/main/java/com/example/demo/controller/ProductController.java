@@ -2,9 +2,7 @@ package com.example.demo.controller;
 
 
 import com.example.demo.models.ProductModel;
-import com.example.demo.repository.ProductRepository;
 import com.example.demo.service.ProductService;
-
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
