@@ -19,4 +19,5 @@ public class ProductModel {
     private String nomeKimono;
     private Double precoKimono;
     private Integer quantidadeKimono;
+    private String imagem;
 }
