@@ -22,6 +22,5 @@ public class UserModel {
     public String nomeUser;
     public String senhaUser;
     public String emailUser;
-    public String enderecoUser;
 
 }
