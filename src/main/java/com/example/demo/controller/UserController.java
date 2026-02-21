@@ -25,6 +25,7 @@ public class UserController {
     @Autowired
     private UserService userService;
 
+
     @GetMapping
     public List<UserModel> listarUsuarios(){
         return userService.listarUsuarios();
