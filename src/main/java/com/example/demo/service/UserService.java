@@ -2,6 +2,7 @@ package com.example.demo.service;
 
 import java.util.List;
 import java.util.NoSuchElementException;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Sort;
@@ -56,5 +57,9 @@ public class UserService {
             userRepository.deleteById(id);
         } return listarUsuarios();
     }
+
+    public Optional<UserModel> buscarPorEmail(String email){
+    return userRepository.findByEmailUser(email);
+}
 
 }

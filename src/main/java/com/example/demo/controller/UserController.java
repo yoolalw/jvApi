@@ -1,10 +1,14 @@
 package com.example.demo.controller;
 
 import java.util.List;
+import java.util.Optional;
+
+import com.example.demo.dto.LoginDto;
 import com.example.demo.models.UserModel;
 import com.example.demo.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -24,6 +28,7 @@ public class UserController {
     
     @Autowired
     private UserService userService;
+    private PasswordEncoder passwordEncoder;
 
 
     @GetMapping
@@ -47,6 +52,25 @@ public class UserController {
         List<UserModel> userModels = userService.deletarUsuario(id);
         return ResponseEntity.ok().build();
     }
+
+    @PostMapping("/login")
+    public ResponseEntity<?> login(@RequestBody LoginDto loginDto){
+        Optional<UserModel> user = userService.buscarPorEmail(loginDto.getEmailUser());
+
+        if(user.isPresent()){
+            boolean senhaCorreta = passwordEncoder.matches(
+                loginDto.getSenhaUser(),
+                user.get().getSenhaUser()
+            );
+            if(senhaCorreta){
+                return ResponseEntity.ok().body("Login realizado com sucesso!");
+            }
+        }
+        return ResponseEntity.status(401).body("Email ou senha invalidos");
+    }
+    
+
+
 
     @GetMapping("/test")
         public String test() {
