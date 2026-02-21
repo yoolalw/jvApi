@@ -1,6 +1,7 @@
 package com.example.demo.controller;
 
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 
 import com.example.demo.dto.LoginDto;
@@ -28,6 +29,7 @@ public class UserController {
     
     @Autowired
     private UserService userService;
+    @Autowired
     private PasswordEncoder passwordEncoder;
 
 
@@ -38,6 +40,7 @@ public class UserController {
 
     @PostMapping("/register")
     public List<UserModel> cadastrarUsuario(@RequestBody UserModel user) {
+        System.out.println("Entrou no register");
         return userService.cadastrarUsuario(user);
     }
 
@@ -53,21 +56,23 @@ public class UserController {
         return ResponseEntity.ok().build();
     }
 
-    @PostMapping("/login")
-    public ResponseEntity<?> login(@RequestBody LoginDto loginDto){
-        Optional<UserModel> user = userService.buscarPorEmail(loginDto.getEmailUser());
+   @PostMapping("/login")
+public ResponseEntity<?> login(@RequestBody LoginDto loginDto){
+    Optional<UserModel> user = userService.buscarPorEmail(loginDto.getEmailUser());
 
-        if(user.isPresent()){
-            boolean senhaCorreta = passwordEncoder.matches(
-                loginDto.getSenhaUser(),
-                user.get().getSenhaUser()
-            );
-            if(senhaCorreta){
-                return ResponseEntity.ok().body("Login realizado com sucesso!");
-            }
+    if(user.isPresent()){
+        boolean senhaCorreta = passwordEncoder.matches(
+            loginDto.getSenhaUser(),
+            user.get().getSenhaUser()
+        );
+
+        if(senhaCorreta){
+            return ResponseEntity.ok(Map.of("message", "Login realizado com sucesso!"));
         }
-        return ResponseEntity.status(401).body("Email ou senha invalidos");
     }
+
+    return ResponseEntity.status(401).body(Map.of("message", "Email ou senha inválidos"));
+}
     
 
 

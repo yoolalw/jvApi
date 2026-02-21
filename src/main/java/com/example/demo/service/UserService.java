@@ -47,8 +47,8 @@ public class UserService {
             usuarioExistente.setEmailUser(usuarioAtualizado.getEmailUser());
             usuarioExistente.setSenhaUser(usuarioAtualizado.getSenhaUser());
 
-            userRepository.save(usuarioAtualizado);
-
+            userRepository.save(usuarioExistente);
+            
             return listarUsuarios();
     }
 
