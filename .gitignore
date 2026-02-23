@@ -31,3 +31,6 @@ build/
 
 ### VS Code ###
 .vscode/
+
+# Ignorar arquivo com chaves locais
+src/main/resources/application-local.properties
