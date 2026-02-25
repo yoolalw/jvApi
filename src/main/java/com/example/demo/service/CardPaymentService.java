@@ -43,7 +43,6 @@ public class CardPaymentService {
     // @PutMapping
     public CardPaymentModel atualizarCartao(Integer id, CardPaymentModel novoCartao) {
         CardPaymentModel existente = buscarPorId(id);
-
         existente.setEmail(novoCartao.getEmail());
         existente.setDadosCartao(novoCartao.getDadosCartao());
         existente.setValidade(novoCartao.getValidade());

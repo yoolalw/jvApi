@@ -19,8 +19,8 @@ public class UserModel {
     @Id
     @GeneratedValue
     private Integer id;
-    public String nomeUser;
-    public String senhaUser;
-    public String emailUser;
+    private String nomeUser;
+    private String senhaUser;
+    private String emailUser;
 
 }
