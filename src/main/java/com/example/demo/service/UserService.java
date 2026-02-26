@@ -24,10 +24,10 @@ public class UserService {
     }
 
     public List<UserModel> listarUsuarios(){ //@GetMapping, basicamente esse listar usuario só vai gerar/mostrar tudo que ja ta adicionado dentro do banco
-        Sort sort = Sort.by("nomeUser").descending() 
-        .and(Sort.by("emailUser")).ascending();
+        Sort sort = Sort.by("nomeUser").descending() //Sort = organiza | Organiza por "nomeUser" de forma descrescente
+        .and(Sort.by("emailUser")).ascending(); //E, organiza por "emailUser" de forma ascendente
 
-        return userRepository.findAll(sort);
+        return userRepository.findAll(sort); // o userRepository faz a busca (findAll()) no banco, usando o parametro (sort), e retorna pra gente toda aquela lista no banco de dados/ requisicao
     }
 
     public List<UserModel> cadastrarUsuario(UserModel userModel){ //@PostMapping
