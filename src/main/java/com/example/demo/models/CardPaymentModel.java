@@ -27,4 +27,54 @@ public class CardPaymentModel {
     private String endereco;
     private String tipoCartao;
 
+    public String getEmail(){
+        return email;
+    }
+    public void setEmail(String email){
+        this.email = email;
+    }
+
+    public String getDadosCartao(){
+        return dadosCartao;
+    }
+    public void setDadosCartao(String dadosCartao){
+        this.dadosCartao = dadosCartao;
+    }
+
+    public String getValidade(){
+        return validade;
+    }
+    public void setValidade(String validade){
+        this.validade = validade;
+    }
+
+    public String getCvc(){
+        return cvc;
+    }
+    public void setCvc(String cvc){
+        this.cvc = cvc;
+    }
+
+    public String getNomeCartao(){
+        return nomeCartao;
+    }
+    public void setNomeCartao(String nomeCartao){
+        this.nomeCartao = nomeCartao;
+    }
+
+    public String getEndereco(){
+        return endereco;
+    }
+    public void setEndereco(String endereco){
+        this.endereco = endereco;
+    }
+
+    public String getTipoCartao(){
+        return tipoCartao;
+    }
+    public void setTipoCartao(String tipoCartao){
+        this.tipoCartao = tipoCartao;
+    }
+
+
 }

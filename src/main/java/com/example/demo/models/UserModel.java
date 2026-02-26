@@ -23,4 +23,26 @@ public class UserModel {
     private String senhaUser;
     private String emailUser;
 
+    public String getNomeUser(){
+        return nomeUser;
+    }
+    public void setNomeUser(String nomeUser){
+        this.nomeUser = nomeUser;
+    }
+
+    public String getSenhaUser(){
+        return senhaUser;
+    }
+
+    public void setSenhaUser(String senhaUser){
+        this.senhaUser = senhaUser;
+
+    }
+
+    public String getEmailUser(){
+        return emailUser;
+    }
+    public void setEmailUser(String emailUser){
+        this.emailUser = emailUser;
+    }
 }
