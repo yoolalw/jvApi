@@ -28,7 +28,7 @@ public class UserService {
         .and(Sort.by("emailUser")).ascending(); //E, organiza por "emailUser" de forma ascendente
 
         return userRepository.findAll(sort); // o userRepository faz a busca (findAll()) no banco, usando o parametro (sort), e retorna pra gente toda aquela lista no banco de dados/ requisicao
-    }
+    } //em resumo, essa funcao cria a listagem de usuarios, organiza como vai ser executada e returna vindo direto do banco de dados, usando toda a configuracao finda do sort.
 
     public List<UserModel> cadastrarUsuario(UserModel userModel){ //@PostMapping
         if(!userRepository.findByEmailUser(userModel.getEmailUser()).isPresent()){
