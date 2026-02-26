@@ -12,19 +12,19 @@ import org.springframework.stereotype.Service;
 import com.example.demo.models.UserModel;
 import com.example.demo.repository.UserRepository;
 
-@Service
+@Service //coloca a anotacao que é um @Service
 public class UserService {
-    private UserRepository userRepository;
+    private UserRepository userRepository; //declara o userRepository
 
-    @Autowired
-    private PasswordEncoder passwordEncoder;
+    @Autowired //notacao que adiciona todas as formas de "dependencia", basicamente, tudo que recebe essa notacao tem as dependencias e as funcoes adicionadas dentro dessa classe
+    private PasswordEncoder passwordEncoder; //adiciona e declara todas as dependencias vindo do passwordEncoder
 
-    public UserService(UserRepository userRepository){
-        this.userRepository = userRepository;
+    public UserService(UserRepository userRepository){ //adiciona as depenencias do userService
+        this.userRepository = userRepository; //tudo que for e vier do userRepository ira passar pelo UserService
     }
 
-    public List<UserModel> listarUsuarios(){ //@GetMapping
-        Sort sort = Sort.by("nomeUser").descending()
+    public List<UserModel> listarUsuarios(){ //@GetMapping, basicamente esse listar usuario só vai gerar/mostrar tudo que ja ta adicionado dentro do banco
+        Sort sort = Sort.by("nomeUser").descending() 
         .and(Sort.by("emailUser")).ascending();
 
         return userRepository.findAll(sort);

@@ -57,21 +57,21 @@ public class UserController {
     }
 
    @PostMapping("/login")
-public ResponseEntity<?> login(@RequestBody LoginDto loginDto){
-    Optional<UserModel> user = userService.buscarPorEmail(loginDto.getEmailUser());
+    public ResponseEntity<?> login(@RequestBody LoginDto loginDto){
+        Optional<UserModel> user = userService.buscarPorEmail(loginDto.getEmailUser());
 
-    if(user.isPresent()){
-        boolean senhaCorreta = passwordEncoder.matches(
-            loginDto.getSenhaUser(),
-            user.get().getSenhaUser()
-        );
+            if(user.isPresent()){
+                boolean senhaCorreta = passwordEncoder.matches(
+                    loginDto.getSenhaUser(),
+                    user.get().getSenhaUser()
+                );
 
-        if(senhaCorreta){
-            return ResponseEntity.ok(Map.of("message", "Login realizado com sucesso!"));
-        }
-    }
+                if(senhaCorreta){
+                    return ResponseEntity.ok(Map.of("message", "Login realizado com sucesso!"));
+                }
+            }
 
-    return ResponseEntity.status(401).body(Map.of("message", "Email ou senha inválidos"));
+        return ResponseEntity.status(401).body(Map.of("message", "Email ou senha inválidos"));
 }
     
 
